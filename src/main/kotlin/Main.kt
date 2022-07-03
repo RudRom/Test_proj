@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
 fun printInfo (data: Map<String, List<Int>>){
     val monthlyProfit = MutableList<Int>(0){0}
     var temp = 0
+    var mounth = ""
     //for (i in 0 until 4)
     //    println(data.filter { it.value.all { it >= 0 } }.map { it.value }[i])
     for (i in 0 until data.filter { it.value.all { it >= 0 } }.size){
@@ -20,10 +21,17 @@ fun printInfo (data: Map<String, List<Int>>){
         monthlyProfit.add(temp)
         temp = 0
     }
+    for ((key, value) in data){
+        if (temp < value.sum()) {
+            temp = value.sum()
+            mounth = key
+        }
+    }
+    monthlyProfit.sortDescending()
     println("Medium weekly profit: ${data.filter { it.value.all { it >= 0} }.flatMap{ it.value }.average()}")
     println("Medium monthly profit: ${monthlyProfit.average()}")
-    println("Max monthly profit: ${1}")
-    println("Max monthly profit were in ${1}")
+    println("Max monthly profit: ${monthlyProfit[0]}")
+    println("Max monthly profit were in $mounth")
     println("Min monthly profit: ${1}")
     println("Min monthly profit were in ${1}")
     println("Month with corrupted data: ${1}")
